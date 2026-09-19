@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+   <meta name="author" content="Sarab">
+   <meta name="description" content="Siliguri International Short Film Festival">
+   <title>Siliguri Film Festival</title>
+   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet"/>
+   <link href="css/bootstrap.min.css" rel="stylesheet"/>
+   <link href="css/aos.css" rel="stylesheet"/>
+   <link href="css/swiper-bundle.min.css" rel="stylesheet"/>
+   <link rel="stylesheet" href="css/all.min.css"/>
+   <link rel="stylesheet" href="css/magnific-popup.css"/>
+   <link rel="stylesheet" href="css/style.css" />
+   <style>
+      /* ============================================================
+         GLOBAL OVERFLOW / RESPONSIVE GUARDS
+         ============================================================ */
+      html, body {
+         margin: 0;
+         padding: 0;
+         width: 100%;
+         max-width: 100%;
+         overflow-x: hidden;
+         -webkit-text-size-adjust: 100%;
+      }
+      *, *::before, *::after {
+         box-sizing: border-box;
+      }
+      img, video, iframe, svg {
+         max-width: 100%;
+         height: auto;
+         display: block;
+      }
+      body {
+         overflow-x: hidden;
+      }
+
+      /* --- INTRO PAGE STYLES --- */
+      #intro-page {
+         position: fixed;
+         inset: 0;                        /* top/right/bottom/left: 0 */
+         width: 100%;
+         height: 100%;                   
+         background: #1a0303;
+         z-index: 10000;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         overflow: hidden;
+         transition: opacity 1.2s ease, visibility 1.2s ease;
+      }
+      #intro-page.hide-intro {
+         opacity: 0;
+         visibility: hidden;
+         pointer-events: none;
+      }
+
+      /* Curtain Background */
+      .intro-curtain-left,
+      .intro-curtain-right {
+         position: absolute;
+         top: 0;
+         width: 50%;
+         height: 100%;
+         background: linear-gradient(90deg, #2a0505 0%, #4a0e0e 50%, #2a0505 100%);
+         box-shadow: 0 0 50px rgba(0,0,0,0.9);
+         transition: transform 1.5s cubic-bezier(0.77, 0, 0.18, 1);
+      }
+      .intro-curtain-left {
+         left: 0;
+         border-right: 2px solid rgba(255, 200, 50, 0.15);
+      }
+      .intro-curtain-right {
+         right: 0;
+         border-left: 2px solid rgba(255, 200, 50, 0.15);
+      }
+      #intro-page.hide-intro .intro-curtain-left  { transform: translateX(-100%); }
+      #intro-page.hide-intro .intro-curtain-right { transform: translateX(100%); }
+
+      /* Center Content */
+      .intro-content {
+         position: relative;
+         z-index: 2;
+         text-align: center;
+         color: #fff;
+         max-width: 700px;
+         width: 100%;
+         padding: 40px 20px;
+         opacity: 1;
+         transform: scale(1);
+         transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;
+      }
+      #intro-page.hide-intro .intro-content {
+         opacity: 0;
+         transform: scale(0.9);
+      }
+
+      /* Golden Star */
+      .intro-star {
+         font-size: 4rem;
+         color: #ffd700;
+         text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3);
+         margin-bottom: 20px;
+         animation: starPulse 2s infinite alternate ease-in-out;
+      }
+      @keyframes starPulse {
+         0%   { transform: scale(1);    text-shadow: 0 0 20px rgba(255,215,0,0.6), 0 0 60px rgba(255,215,0,0.3); }
+         100% { transform: scale(1.15); text-shadow: 0 0 40px rgba(255,215,0,0.9), 0 0 100px rgba(255,215,0,0.5); }
+      }
+
+      /* Heading Styles */
+      .intro-sub {
+         font-family: 'Poppins', sans-serif;
+         font-weight: 300;
+         letter-spacing: 6px;
+         font-size: 0.9rem;
+         color: #d4af37;
+         text-transform: uppercase;
+         margin-bottom: 15px;
+         animation: fadeInUp 1s ease 0.2s both;
+      }
+      .intro-title {
+         font-family: 'Playfair Display', serif;
+         font-weight: 700;
+         font-size: 3.5rem;
+         line-height: 1.2;
+         color: #fff;
+         text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+         animation: fadeInUp 1s ease 0.5s both;
+      }
+      .intro-title span {
+         display: block;
+         font-weight: 400;
+         font-size: 2.8rem;
+         color: #ffd700;
+      }
+      .intro-divider {
+         width: 120px;
+         height: 2px;
+         background: linear-gradient(90deg, transparent, #ffd700, transparent);
+         margin: 20px auto;
+         animation: fadeInUp 1s ease 0.7s both;
+      }
+      .intro-tagline {
+         font-family: 'Dancing Script', cursive;
+         font-size: 2rem;
+         color: #e0c080;
+         margin-bottom: 30px;
+         animation: fadeInUp 1s ease 0.9s both;
+      }
+
+      /* Button */
+      .intro-btn {
+         display: inline-block;
+         padding: 14px 45px;
+         border: 2px solid #ffd700;
+         border-radius: 50px;
+         background: transparent;
+         color: #ffd700;
+         font-family: 'Poppins', sans-serif;
+         font-weight: 500;
+         font-size: 1rem;
+         letter-spacing: 4px;
+         text-transform: uppercase;
+         cursor: pointer;
+         transition: all 0.4s ease;
+         animation: fadeInUp 1s ease 1.1s both;
+         position: relative;
+         overflow: hidden;
+          animation: blinkGlow 1s infinite;
+}
+
+@keyframes blinkGlow {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
+    50% {
+        opacity: 0.6;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+}
+      
+      .intro-btn:hover {
+         background: #ffd700;
+         color: #1a0303;
+         box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+         transform: scale(1.05);
+      }
+      .intro-btn::after {
+         content: '';
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         width: 0;
+         height: 0;
+         background: rgba(255, 215, 0, 0.2);
+         border-radius: 50%;
+         transform: translate(-50%, -50%);
+         transition: width 0.6s, height 0.6s;
+      }
+      .intro-btn:hover::after {
+         width: 300px;
+         height: 300px;
+      }
+      .intro-click-hint {
+         margin-top: 25px;
+         font-size: 0.75rem;
+         letter-spacing: 3px;
+         color: rgba(255,255,255,0.5);
+         text-transform: uppercase;
+         animation: fadeInUp 1s ease 1.3s both;
+      }
+      @keyframes fadeInUp {
+         from { opacity: 0; transform: translateY(30px); }
+         to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Intro Responsive */
+      @media (max-width: 768px) {
+         .intro-title      { font-size: 2.2rem; }
+         .intro-title span { font-size: 1.8rem; }
+         .intro-tagline    { font-size: 1.4rem; }
+         .intro-sub        { font-size: 0.7rem; letter-spacing: 4px; }
+         .intro-btn        { padding: 12px 30px; font-size: 0.85rem; letter-spacing: 2px; }
+         .intro-star       { font-size: 3rem; }
+      }
+      @media (max-width: 480px) {
+         .intro-title      { font-size: 1.6rem; }
+         .intro-title span { font-size: 1.3rem; }
+         .intro-tagline    { font-size: 1.1rem; }
+         .intro-sub        { font-size: 0.6rem; letter-spacing: 3px; }
+         .intro-btn        { padding: 10px 22px; font-size: 0.75rem; letter-spacing: 1.5px; }
+         .intro-star       { font-size: 2.2rem; }
+         .intro-click-hint { font-size: 0.6rem; }
+      }
+
+      /* ============================================================
+         CONTENT OVERFLOW FIXES
+         ============================================================ */
+
+      /* Marquee: clip the scrolling track so it never widens the page */
+      .mqsec {
+         overflow: hidden !important;
+         width: 100%;
+         max-width: 100%;
+      }
+      .mqtrack {
+         display: inline-flex;
+         white-space: nowrap;
+         will-change: transform;
+      }
+
+      /* Long text breaking */
+      .tl-left h5,
+      .tl-right h5,
+      .bltag,
+      .blbody,
+      .catct,
+      .mcat,
+      .hdesc,
+      .sdesc,
+      .spdesc,
+      p, h1, h2, h3, h4, h5, h6, a, span, div {
+         overflow-wrap: anywhere;
+         word-break: break-word;
+      }
+
+      /* Timeline: ensure both columns never overflow the row */
+      .tli {
+         display: flex;
+         align-items: flex-start;
+         gap: 20px;
+         flex-wrap: wrap;
+      }
+      .tl-left,
+      .tl-right {
+         flex: 1 1 0;
+         min-width: 0;
+         max-width: 100%;
+      }
+      .tl-center {
+         flex: 0 0 auto;
+      }
+
+      /* Hero stats wrap */
+      .hstats {
+         flex-wrap: wrap !important;
+         row-gap: 12px;
+      }
+      .hstat { min-width: 0; }
+      .sdiv  { flex: 0 0 1px; align-self: stretch; }
+
+      /* Hero circle image constrain */
+      .hcircle {
+         width: min(90vw, 520px);
+         height: min(90vw, 520px);
+         margin: 0 auto;
+         overflow: hidden;
+         border-radius: 50%;
+      }
+      .hcircle img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         border-radius: 50%;
+      }
+
+      /* Navbar logo scaling on small screens */
+      @media (max-width: 576px) {
+         .blogo { gap: 6px !important; }
+         .blogo img:first-child { width: 36px !important; height: 36px !important; }
+         .blogo img:last-child  { width: 90px !important; height: 34px !important; }
+         .bname { font-size: 1rem; }
+      }
+      @media (max-width: 380px) {
+         .blogo img:last-child { width: 70px !important; height: 28px !important; }
+      }
+
+      /* Blog meta wrap */
+      .blmeta {
+         flex-wrap: wrap;
+         gap: 6px 12px;
+      }
+
+      /* Tiny screen tweaks */
+      @media (max-width: 480px) {
+         .sdiv { display: none; }
+         .hstat { flex: 1 1 45%; text-align: center; }
+         .gitem img { width: 100%; }
+         .intro-content { padding: 24px 14px; }
+      }
+      /* AOS safety fallback: never let animated elements stay invisible forever */
+[data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: auto !important;
+}
+
+/* But if you still want animation on desktop, enable it only there */
+@media (min-width: 992px) {
+    [data-aos] {
+        opacity: unset !important;
+        transform: unset !important;
+        transition: unset !important;
+    }
+}
+   </style>
+</head>
+<body>
+
+<!-- ============================================================
+     INTRO PAGE (ANIMATED)
+     ============================================================ -->
+<div id="intro-page">
+   <div class="intro-curtain-left"></div>
+   <div class="intro-curtain-right"></div>
+   <div class="intro-content">
+      <div class="intro-star"><i class="fas fa-star"></i></div>
+      <div class="intro-sub">The World's Cinematic Celebration</div>
+      <h1 class="intro-title">
+         Siliguri International
+         <span>Short Film Festival</span>
+      </h1>
+      <div class="intro-divider"></div>
+      <div class="intro-tagline">Where stories become legends.</div>
+      <button class="intro-btn" id="enterBtn">Click Here To Continue</button>
+   </div>
+</div>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav class="navbar navbar-expand-lg" id="nav">
+   <div class="container">
+      <a class="navbar-brand" href="#">
+         <div class="blogo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="img/logo.png" alt="Logo"
+                 style="width: 45px; height: 45px; object-fit: contain; display: block;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+               <div class="bname">SIS<span>FF</span></div>
+               <img src="img/cover.png" alt="Cover"
+                    style="width: 150px; height: 45px; object-fit: contain; display: block;">
+            </div>
+         </div>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+         <i class="fas fa-bars" style="color:var(--primary);font-size:1.35rem;"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu">
+         <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="#org">Organisers</a></li>
+            <li class="nav-item"><a class="nav-link" href="#menu">Mentors</a></li>
+            <li class="nav-item"><a class="nav-link" href="#chefs">Nominations</a></li>
+            <li class="nav-item"><a class="nav-link" href="#reservation">Reservations</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact-section">Contact</a></li>
+         </ul>
+      </div>
+   </div>
+</nav>
+
+<!-- ============================================================
+     TOP BANNER (appears after entering the program)
+     ============================================================ -->
+<div id="topBanner" style="
+   position: relative;
+   width: 100%;
+   overflow: hidden;
+   background: #1a0303;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   opacity: 0;
+   transform: translateY(-20px);
+   transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+">
+   <img src="img/banner-top.jpg" alt="Siliguri International Short Film Festival Banner"
+        style="width:100%; height:auto; max-height:420px; object-fit:cover; display:block;"/>
+</div>
+
+<script>
+(function () {
+   var introPage = document.getElementById('intro-page');
+   var enterBtn  = document.getElementById('enterBtn');
+   var topBanner = document.getElementById('topBanner');
+
+   function sizeBanner() {
+      var img = topBanner && topBanner.querySelector('img');
+      if (!img) return;
+      var w = window.innerWidth;
+      img.style.maxHeight = w <= 480 ? '160px' : (w <= 768 ? '220px' : '420px');
+   }
+   sizeBanner();
+   window.addEventListener('resize', sizeBanner);
+
+   if (enterBtn) {
+      enterBtn.addEventListener('click', function () {
+         introPage.classList.add('hide-intro');
+         document.body.style.overflow = '';
+         setTimeout(function () {
+            topBanner.style.opacity = '1';
+            topBanner.style.transform = 'translateY(0)';
+         }, 400);
+         setTimeout(function () {
+            introPage.style.display = 'none';
+         }, 1500);
+      });
+   }
+})();
+</script>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+   <div class="hs hs1"></div>
+   <div class="hs hs2"></div>
+   <div class="hbgtxt">SISFF</div>
+   <div class="container">
+      <div class="row align-items-center g-5" style="min-height:88vh;">
+         <div class="col-lg-6">
+            <div class="hbadge">
+               <div class="hbi"><i class="fas fa-star"></i></div>
+               <span>#8th Edition, 2026 (December)</span>
+            </div>
+            <h1 class="htitle">Siliguri <span class="hl">International</span><br/>Short Film Festival</h1>
+            <p class="hdesc">Film Making is an art and it needs more patience and determination to recreate your ideas to a motion picture. Films Festivals although are typically annual events, they acknowledge various genre of films, mostly from across the globe and encourage people engaged in cinema.</p>
+            <div class="d-flex flex-wrap gap-3 mb-2">
+               <a href="img/SISFF.pdf" target="_blank" class="btn-red">Entry Form</a>
+               <a href="https://www.youtube.com/@soulofchaandaan" target="_blank" class="magnific_popup btn-play popup-youtube">
+                  <div class="pico"><i class="fas fa-play"></i></div>
+                  <span>Youtube Channel</span>
+               </a>
+            </div>
+            <div class="hstats d-flex gap-3 flex-wrap mt-4">
+               <div class="hstat"><span class="snum">850<em>+</em></span><small>Film Submission</small></div>
+               <div class="sdiv"></div>
+               <div class="hstat"><span class="snum">20<em>+</em></span><small>Awards</small></div>
+               <div class="sdiv"></div>
+               <div class="hstat"><span class="snum">15<em>+</em></span><small>Judge</small></div>
+               <div class="sdiv"></div>
+               <div class="hstat"><span class="snum">8<em>yr</em></span><small>Experience</small></div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div style="position:relative;text-align:center;">
+               <div class="hcircle">
+                  <img src="img/banner-img.jpg" alt="Banner"/>
+               </div>
+               <div class="fcard fc1">
+                  <div class="fcoi r"><i class="fas fa-fire"></i></div>
+                  <div><span class="fcnum">Instant Prize</span><span class="fcsm">Cash Amount</span></div>
+               </div>
+               <div class="fcard fc2">
+                  <div class="fcoi y"><i class="fas fa-star"></i></div>
+                  <div><span class="fcnum">Live Show</span><span class="fcsm">2k+ Audiences</span></div>
+               </div>
+               <div class="fcard fc3">
+                  <div class="fcoi g"><i class="fas fa-clock"></i></div>
+                  <div><span class="fcnum">30 min</span><span class="fcsm">Short Films</span></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mqsec">
+   <div class="mqtrack">
+      <div class="mqitem"><i class="fas fa-circle"></i>Siliguri</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>International</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Short</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Film</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Festival</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Siliguri</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>International</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Short</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Film</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Festival</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Siliguri</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>International</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Short</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Film</div>
+      <div class="mqitem"><i class="fas fa-circle"></i>Festival</div>
+   </div>
+</div>
+
+<!-- CATEGORY -->
+<section id="category">
+   <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+         <span class="slbl">Awards & Prizes</span>
+         <h2 class="stitle">Browse by <span>Category</span></h2>
+         <div class="sline"></div>
+      </div>
+      <div class="row g-3 justify-content-center">
+         <div class="col-6 col-sm-4 col-md-3 col-lg-2" data-aos="zoom-in" data-aos-delay="0">
+            <div class="catcard active" data-filter="all">
+               <img class="catimg" src="img/category/1.jpeg" alt=""/>
+               <div class="catnm">PRODUCTION AWARDS</div><br>
+               <div class="catct">
+                  Best Short Film (Open to all) 1st,2nd, 3rd (Cash Prizes Rs.8000/ IC, Rs. 5000/ IC, Rs. 3000/IC) and Trophy and Certificate. <br><br>
+                  Best Education Documentary/Short Film (Participate only Educational Institution) 1st,2nd, 3rd
+                  (Cash Prizes Rs.5000/ IC, Rs. 3000/ IC, Rs.2000/ IC) and Trophy and Certificate. <br><br>
+                  Best Musical Album (Open to all) 1st,2nd, 3rd (Cash Prizes Rs. 3000/IC, Rs.2000/ IC,
+                  Rs. 1000/IC) and Trophy and Certificate
+               </div>
+            </div>
+         </div>
+         <div class="col-6 col-sm-4 col-md-3 col-lg-2" data-aos="zoom-in" data-aos-delay="70">
+            <div class="catcard" data-filter="burgers">
+               <img class="catimg" src="img/category/2.jpeg" alt=""/>
+               <div class="catnm">CREATIVE AWARDS</div><br>
+               <div class="catct">
+                  Best Direction (Cash Prizes Rs.3000/ IC and Trophy, Certificate.) <br><br>
+                  Best Editing (Cash Prizes Rs.3000/ IC and Trophy, Certificate.)<br><br>
+                  Best Cinematography (Cash Prizes Rs.3000/ IC and Trophy, Certificate.)<br><br>
+                  Best Music (Cash Prizes Rs.3000/ IC and Trophy, Certificate.).
+               </div>
+            </div>
+         </div>
+         <div class="col-6 col-sm-4 col-md-3 col-lg-2" data-aos="zoom-in" data-aos-delay="140">
+            <div class="catcard" data-filter="pizza">
+               <img class="catimg" src="img/category/3.jpeg" alt=""/>
+               <div class="catnm">PERFORMANCE AWARDS</div><br>
+               <div class="catct">
+                  Best Actor (Cash Prizes Rs.3000/ IC and Trophy, Certificate.)<br><br>
+                  Best Actress (Cash Prizes Rs.3000/ IC and Trophy, Certificate.)<br><br>
+                  Best Supporting Actor/Actress (Cash Prizes Rs.3000/ IC and Trophy, Certificate.)<br><br>
+               </div>
+            </div>
+         </div>
+         <div class="col-6 col-sm-4 col-md-3 col-lg-2" data-aos="zoom-in" data-aos-delay="210">
+            <div class="catcard" data-filter="chicken">
+               <img class="catimg" src="img/category/4.jpeg" alt=""/>
+               <div class="catnm">CATEGORY</div><br>
+               <div class="catct">
+                  Educational Documentary <br><br>Short Film <br><br> Musical Album<br><br> Individual<br><br> spiritual
+               </div>
+            </div>
+         </div>
+         <div class="col-6 col-sm-4 col-md-3 col-lg-2" data-aos="zoom-in" data-aos-delay="280">
+            <div class="catcard" data-filter="wraps">
+               <img class="catimg" src="img/category/5.jpeg" alt=""/>
+               <div class="catnm">INDIVIDUAL</div><br>
+               <div class="catct">
+                  Best Direction<br><br>  Best Story<br><br> Best Editing<br><br> Best DOP<br><br>  Best BGM<br><br>  Best Actor<br><br>
+                  Best Actress<br><br>  Best Supporting Actor<br><br>  Best Supporting Actress
+                  <br><br>  Best Screenplay<br><br>  Best Concept
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+   <div class="container">
+      <div class="row align-items-center g-5">
+         <div class="col-lg-5" data-aos="fade-right">
+            <div class="astack">
+               <div class="aexp"><span class="anum">8+</span><small>Years of<br/>Excellence</small></div>
+               <div class="amain"><img src="img/about1.jpeg" alt="Festival"/></div>
+               <div class="asm"><img src="img/about2.jpeg" alt=""/></div>
+            </div>
+         </div>
+         <div class="col-lg-7" data-aos="fade-left">
+            <span class="slbl">Our Story</span>
+            <h2 class="stitle text-start">We provide an opportunity for unknown <br/>filmmakers <span>to get their movies</span></h2>
+            <div class="sline lft"></div>
+            <p class="sdesc mb-4">
+               In front of a real live audience and to have their films reviewed by professional critics. Filmmakers whose movies get accepted into a festival also get valuable press attention and exposure to prospective agents and buyers, not to mention a sometimes sizeable cash award if they win. From time immemorial, films have played a very important part in bringing people of varying backgrounds together and entertaining them. But, most of the times, the hard work behind making these fields go unnoticed and therefore film festivals started all over the world. Venice Film Festival is the oldest one in the world, there are two other prestigious Film Festivals of Cannes and Berlin. Although the main crux came from international countries, India also has its very own set of Film Festivals in accordance to different states. Stating a few would be, Bangalore Film Festival 1996, Kolkata Film Festival 1995, Mumbai Film Festival 1990 and many more. Siliguri is situated at the base of the Himalayan Mountains in the plains of Darjeeling District beside river Mahananda. It is the 2nd largest city in West Bengal and is also known as the Gateway to the North-East.
+            </p>
+            <div class="mb-4">
+               <div class="fti">
+                  <div class="ftico r"><i class="fas fa-leaf"></i></div>
+                  <div>
+                     <h6>Strategic Location</h6>
+                     <p>The strategic location of the place makes sure that travelers to North-East India have to pass through this city. Siliguri is not a very old city, but it ranks in the 19th number amongst 35 places to visit in West Bengal. Being a cosmopolitan city, it shelters a wide number of people with varying cultures and languages, along with a few tribal populations. Although the common language spoken in Siliguri is Bengali; Hindi, English, Nepali, Marwari, Bhojpuri, Punjabi, Assamese, Rajbangshi, Tibetian and many more varieties of linguistic people reside together Not only these, but the entire region of Siliguri is also famous for 3 T's namely: Tea, Timber, and Tourism.</p>
+                  </div>
+               </div>
+               <div class="fti">
+                  <div class="ftico y"><i class="fas fa-award"></i></div>
+                  <div>
+                     <h6>Award-Winning Films</h6>
+                     <p>There are 45 tea gardens to spread over the blocks of the sub-division. Two important adjacent areas – Mahananda Wildlife Sanctuary, Baikunthapur contribute a lot to the microclimate of the region. It also has the best communication network along with the nearest railway station being NJP (New Jalpaiguri). Bagdogra Airport is the only airport in the distance of 12km which caters to the needs of Sikkim. Talking about films, the quintessential Barfi, directed by Anurag Basu, starring Priyanka Chopra, Ranbir Kapoor, Ileana D'Cruz, Ashish Vidyarthi, Saurabh Shukla, Jishu Sengupta, Rupa Ganguly had been shot in Darjeeling, also known as The Queen of Hills which also falls under the North-East region. There are also plenty of regional films that are shot in or nearby this place, thus making it a hub for every type of genre!</p>
+                  </div>
+               </div>
+            </div>
+            <a href="https://filmfreeway.com/SISFF" class="btn-red"><i class="fas fa-book-open"></i>Submit by FilmFreeWay</a>
+            <br><br>
+            <a href="https://filmmakers.festhome.com/f/6293" class="btn-red"><i class="fas fa-book-open"></i>Submit by FestHome</a>
+            <br><br>
+          <a href="https://mail.google.com/mail/?view=cm&to=admin@siligurifilmfest.co.in" target="_blank" class="btn-red">
+    <i class="fas fa-book-open"></i>
+    Submit by Webmail (Gmail)
+</a>
+         </div>
+      </div>
+   </div>
+</section>
+
+<section id="org" style="max-width: 1200px; margin: 40px auto; padding: 0 16px;">
+
+  <!-- 3 Images Row -->
+  <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+
+    <div style="flex: 1 1 280px; max-width: 380px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.12);">
+      <img src="img/org1.jpeg"
+           alt="Image 1"
+           style="width: 100%; height: 220px; object-fit: contain; display: block;">
+    </div>
+
+    <div style="flex: 1 1 280px; max-width: 380px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.12);">
+      <img src="img/org2.jpeg"
+           alt="Image 2"
+           style="width: 100%; height: 220px; object-fit: contain; display: block;">
+    </div>
+
+    <div style="flex: 1 1 280px; max-width: 380px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.12);">
+      <img src="img/org3.jpeg"
+           alt="Image 3"
+           style="width: 100%; height: 220px; object-fit: contain; display: block;">
+    </div>
+
+  </div>
+
+  <!-- Text Line -->
+  <p style="text-align: center; margin-top: 20px; font-size: 16px; color: #444; font-family: Arial, sans-serif; letter-spacing: 0.5px;">
+    🎬 In Association with Jay Mata Di Vendor
+  </p>
+
+</section>
+
+<!-- MENU / MENTORS -->
+<section id="menu">
+   <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+         <span class="slbl">Our Backbones</span>
+         <h2 class="stitle">Special <span>Memories</span></h2>
+         <div class="sline"></div>
+      </div>
+      <div class="row g-4" id="mgrid">
+
+         <div class="col-sm-6 col-lg-4 mwrap" data-c="burgers" data-aos="fade-up">
+            <div class="mcard"
+                 data-img="img/menu/1.jpeg"
+                 data-title="Classic Smash Burger"
+                 data-cat="Burgers"
+                 data-price="$14.99" data-old="$18.99"
+                 data-rating="4.9" data-reviews="128"
+                 data-cal="620" data-time="12"
+                 data-desc="Double smashed patty, cheddar cheese, caramelized onions, house pickles and our legendary special sauce. Made fresh to order on a toasted brioche bun."
+                 data-tags="Spicy,Bestseller,Beef">
+               <div class="mimg"><img src="img/menu/1.jpeg" alt="Smash Burger"/></div>
+               <div class="mbody">
+                  <div class="mcat">Festival President</div>
+                  <div class="mtit">Binod Kumar Sah</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-sm-6 col-lg-4 mwrap" data-c="pizza" data-aos="fade-up" data-aos-delay="80">
+            <div class="mcard"
+                 data-img="img/menu/2.jpeg"
+                 data-title="Margherita Royale"
+                 data-cat="Pizza"
+                 data-price="$19.99" data-old="$24.99"
+                 data-rating="4.8" data-reviews="95"
+                 data-cal="480" data-time="18"
+                 data-desc="San Marzano tomatoes, fresh buffalo mozzarella, fragrant basil leaves, drizzled with Italian truffle oil on a hand-stretched sourdough base."
+                 data-tags="Vegetarian,New,Italian">
+               <div class="mimg"><img src="img/menu/2.jpeg" alt="Pizza"/></div>
+               <div class="mbody">
+                  <div class="mcat">2024 Festival Guest of Honour from Nepal</div>
+                  <div class="mtit">Yubraj Giri</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-sm-6 col-lg-4 mwrap" data-c="chicken" data-aos="fade-up" data-aos-delay="160">
+            <div class="mcard"
+                 data-img="img/menu/3.jpeg"
+                 data-title="Nashville Hot Chicken"
+                 data-cat="Chicken"
+                 data-price="$12.99" data-old="$16.99"
+                 data-rating="5.0" data-reviews="210"
+                 data-cal="710" data-time="15"
+                 data-desc="Extra-crispy fried chicken tossed in our signature fiery Nashville spice blend, served with honey drizzle and house pickles on a toasted brioche bun."
+                 data-tags="Spicy,Bestseller,Crispy">
+               <div class="mimg"><img src="img/menu/3.jpeg" alt="Chicken"/></div>
+               <div class="mbody">
+                  <div class="mcat">2024 festival Associate Judge</div>
+                  <div class="mtit">Avishek Roy</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-sm-6 col-lg-4 mwrap" data-c="wraps" data-aos="fade-up">
+            <div class="mcard"
+                 data-img="img/menu/4.jpeg"
+                 data-title="Loaded Fajita Wrap"
+                 data-cat="Wraps"
+                 data-price="$10.99" data-old=""
+                 data-rating="4.5" data-reviews="74"
+                 data-cal="520" data-time="10"
+                 data-desc="Grilled chicken strips, sautéed bell peppers and onions, sour cream, fresh guacamole and salsa wrapped in a warm flour tortilla with melted cheddar."
+                 data-tags="Grilled,Fresh,Mexican">
+               <div class="mimg"><img src="img/menu/4.jpeg" alt="Wrap"/></div>
+               <div class="mbody">
+                  <div class="mcat">2024 Chief Guest</div>
+                  <div class="mtit">Dr. S. K. Choudhury</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-sm-6 col-lg-4 mwrap" data-c="desserts" data-aos="fade-up" data-aos-delay="80">
+            <div class="mcard"
+                 data-img="img/menu/5.jpeg"
+                 data-title="Nutella Lava Cake"
+                 data-cat="Desserts"
+                 data-price="$8.99" data-old="$11.99"
+                 data-rating="4.9" data-reviews="56"
+                 data-cal="390" data-time="8"
+                 data-desc="Warm molten chocolate cake with a gooey Nutella center, served alongside Madagascar vanilla bean ice cream with salted caramel drizzle and fresh berries."
+                 data-tags="Sweet,New,Chocolate">
+               <div class="mimg"><img src="img/menu/5.jpeg" alt="Lava Cake"/></div>
+               <div class="mbody">
+                  <div class="mcat">2024 Festival some news coverage photo</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-sm-6 col-lg-4 mwrap" data-c="desserts" data-aos="fade-up" data-aos-delay="80">
+            <div class="mcard"
+                 data-img="img/menu/8.jpeg"
+                 data-title="Nutella Lava Cake"
+                 data-cat="Desserts"
+                 data-price="$8.99" data-old="$11.99"
+                 data-rating="4.9" data-reviews="56"
+                 data-cal="390" data-time="8"
+                 data-desc="Warm molten chocolate cake with a gooey Nutella center, served alongside Madagascar vanilla bean ice cream with salted caramel drizzle and fresh berries."
+                 data-tags="Sweet,New,Chocolate">
+               <div class="mimg"><img src="img/menu/8.jpeg" alt="Lava Cake"/></div>
+               <div class="mbody">
+                  <div class="mcat">Our Mentor Famous Bengali Film Director</div>
+                  <div class="mtit">Mr. Sujit Guha</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-sm-6 col-lg-4 mwrap" data-c="desserts" data-aos="fade-up" data-aos-delay="80">
+            <div class="mcard"
+                 data-img="img/menu/7.jpeg"
+                 data-title="Nutella Lava Cake"
+                 data-cat="Desserts"
+                 data-price="$8.99" data-old="$11.99"
+                 data-rating="4.9" data-reviews="56"
+                 data-cal="390" data-time="8"
+                 data-desc="Warm molten chocolate cake with a gooey Nutella center, served alongside Madagascar vanilla bean ice cream with salted caramel drizzle and fresh berries."
+                 data-tags="Sweet,New,Chocolate">
+               <div class="mimg"><img src="img/menu/7.jpeg" alt="Lava Cake"/></div>
+               <div class="mbody">
+                  <div class="mcat">Associate Judge, a famous Bengali Film Director</div>
+                  <div class="mtit">Mr. Babu Roy</div>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-sm-6 col-lg-4 mwrap" data-c="pasta" data-aos="fade-up" data-aos-delay="160">
+            <div class="mcard"
+                 data-img="img/menu/6.jpeg"
+                 data-title="Truffle Mushroom Pasta"
+                 data-cat="Pasta"
+                 data-price="$16.99" data-old=""
+                 data-rating="4.9" data-reviews="88"
+                 data-cal="560" data-time="20"
+                 data-desc="Al dente tagliatelle tossed with mixed wild mushrooms, freshly shaved black truffle, aged parmesan, fresh thyme and a touch of cream in garlic butter."
+                 data-tags="Vegetarian,Chef's Pick,Italian">
+               <div class="mimg"><img src="img/menu/6.jpeg" alt="Pasta"/></div>
+               <div class="mbody">
+                  <div class="mcat">2024 Festival some news coverage photo</div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</section>
+
+<!-- MENU DETAIL POPUP MODAL -->
+<div id="menuPop">
+   <div class="mpbox">
+      <button class="mpclose" id="mpClose"><i class="fas fa-times"></i></button>
+      <div class="mpimg"><img id="mpImg" src="" alt=""/></div>
+      <div class="mpbody">
+         <div id="mpCat"></div>
+         <div id="mpTitle"></div>
+         <div id="mpStars"></div>
+         <div id="mpDesc"></div>
+         <div id="mpPrice"></div>
+         <div class="mpmeta" id="mpMeta"></div>
+         <div class="mpqty">
+            <button class="mpqbtn" id="mpMinus">-</button>
+            <span class="mpqnum" id="mpQnum">1</span>
+            <button class="mpqbtn" id="mpPlus">+</button>
+            <span style="font-size:.82rem;color:#aaa;margin-left:9px;">portion</span>
+         </div>
+         <div class="mptags" id="mpTags"></div>
+         <button class="mpaddcart" id="mpAddCart"><i class="fas fa-shopping-cart"></i>Add to Cart</button>
+      </div>
+   </div>
+</div>
+
+<!-- SPECIAL OFFER -->
+<section id="special">
+   <div class="spbg"></div>
+   <div class="container" style="position:relative;z-index:2;">
+      <div class="row align-items-center g-5">
+         <div class="col-lg-6" data-aos="fade-right">
+            <div class="sptag"><i class="fas fa-bolt me-1"></i>Countdown Begins</div>
+            <h2 class="sptitle">December, 2026 <br/>Siliguri<br/><span>Witness</span> the Grand Festival</h2>
+            <p class="spdesc">Don't miss our special event - grab our award-winning contest and a premium shake at an unbeatable price.</p>
+            <a href="#menu" class="btn-red"><i class="fas fa-shopping-cart"></i>Grab the Deal</a>
+         </div>
+         <div class="col-lg-6" data-aos="fade-left">
+            <div class="spimgw">
+               <div class="spglow"></div>
+               <img src="img/off.jpeg" alt="Special Offer"/>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+   <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+         <span class="slbl">Event Showcase</span>
+         <h2 class="stitle">Let's See Our <span>Guest</span></h2>
+         <div class="sline"></div>
+      </div>
+      <div class="ggrid" data-aos="fade-up">
+         <div class="gitem" data-gi="0"
+              data-gimg="img/portfolio/work1.jpeg"
+              data-gtitle="Gourmet Burgers"
+              data-gdesc="Our award-winning smash burgers, hand-crafted with 100% premium beef, aged cheddar and house-made sauces.">
+            <img src="img/portfolio/work1.jpeg" alt="Burgers"/>
+         </div>
+         <div class="gitem" data-gi="1"
+              data-gimg="img/portfolio/work2.jpeg"
+              data-gtitle="Wood-Fired Pizza"
+              data-gdesc="Authentic Neapolitan-style pizzas fired at 900deg F in our wood-burning stone oven for the perfect char.">
+            <img src="img/portfolio/work2.jpeg" alt="Pizza"/>
+         </div>
+         <div class="gitem" data-gi="2"
+              data-gimg="img/portfolio/work3.jpeg"
+              data-gtitle="Crispy Fried Chicken"
+              data-gdesc="Double-brined, hand-battered chicken fried to golden perfection using our 15-spice secret blend.">
+            <img src="img/portfolio/work3.jpeg" alt="Chicken"/>
+         </div>
+         <div class="gitem" data-gi="3"
+              data-gimg="img/portfolio/work4.jpeg"
+              data-gtitle="Sweet Desserts"
+              data-gdesc="Handcrafted desserts - from molten lava cakes to artisan ice cream sundaes and seasonal pastries.">
+            <img src="img/portfolio/work4.jpeg" alt="Desserts"/>
+         </div>
+         <div class="gitem" data-gi="4"
+              data-gimg="img/portfolio/work5.jpeg"
+              data-gtitle="Fresh Wraps &amp; Rolls"
+              data-gdesc="Loaded fresh wraps packed with grilled proteins, crunchy vegetables and our house-made sauces.">
+            <img src="img/portfolio/work5.jpeg" alt="Wraps"/>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- GALLERY POPUP -->
+<div id="galPop">
+   <div class="gpbox">
+      <button class="gpclose" id="gpClose"><i class="fas fa-times"></i></button>
+      <img id="gpImg" src="" alt=""/>
+      <div class="gpcap">
+         <h5 id="gpTitle"></h5>
+         <p id="gpDesc"></p>
+      </div>
+      <div class="gpnav">
+         <button id="gpPrev"><i class="fas fa-chevron-left me-1"></i>Prev</button>
+         <button id="gpNext">Next <i class="fas fa-chevron-right ms-1"></i></button>
+      </div>
+   </div>
+</div>
+
+<!-- HISTORY / REGULATIONS -->
+<section id="history">
+   <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+         <span class="slbl">Program Rules</span>
+         <h2 class="stitle">A brief guide of <span>REGULATIONS</span></h2>
+         <div class="sline"></div>
+      </div>
+      <div class="timeline" data-aos="fade-up">
+
+         <div class="tli">
+            <div class="tl-left"><h5>The winner will be honored with a certificate and trophy.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>The film must be subtitled in English if the language is other than English.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>Entry submission as per rule and regulation.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>The decision of the jury will be final and can't be challenged.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>Once the film is submitted can't be withdrawn in any circumstances, however the festival director reserve to right to disqualify any film.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>By submitting the movie to International Short Cinema Festival, Filmmaker/Producer takes the whole responsibility of copyright issue.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>Short Cinema Festival – does not take any type of financial commitment. All travel, lodging and boarding, and other miscellaneous expenses will have to be borne by the participant himself for attending the festival. • Festival's guest registration to attend SISFF. All nominated filmmakers must have registered as a guest to attend the festival. Hospitality charges are applicable for filmmakers and attendees, which include lunch. On-spot guest registration is not allowed.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>The short film must have been completed before 1st January 2022.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>Applications can send the Film on DVD or in Pen Drive (Video Format .MP4 or .MOV).</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>The Festival Management will not be responsible if the film is not screened due to problems with the DVD or with the Pen Drive.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>Total running time must be less than 60 minutes in length (for a short film, not a feature film), including front and back credits. There is no minimum running time limitation.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>All non-English films must have English subtitles for festival presentation.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>A censor certificate is not mandatory for the film screening.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>Two DVDs OR one PEN-DRIVE need to be submitted along with the entry. Each preview DVD should be labeled with the title, Running – time, Contact Email, and phone number. If the applicant is sending film in a PEN DRIVE separate paper needs to send with an Entry Form mentioning the Title, Running – time, Contact E-mail and Phone number of the application, and Producer/Director of the film.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>Multiple entries can be submitted, but with separate entry forms, preview DVD (OR PEN DRIVE), synopsis/description, should be enclosed. Each film is considered a new entry.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>SISFF organization has the right to use the entries/send/selected/nominated films, DVD and materials from the film for festival promotional purposes and to retain DVD copies of each film as part of our festival library.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>The publicity material (Broacher, Stills, Poster, etc.) and a synopsis of the short film to be enclosed with the entry. Entry materials submitted shall not be returned to the entrant. The Festival will not be responsible or borne to pay if the Courier stuck with the department.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>Transportation and insurance costs of DVDs, related documents, photographs and publicity materials from the country of origin to the Festival Office shall be borne by the applicant.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>The festival will not pay any customs duty or registrations to the Customs department at the Indian aviation authority; if the parcel is returned to the applicant because of that the festival organization will not be held liable for any such circumstances.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>The film should be submitted before the deadline. SISFF is not responsible for late, lost, damaged, misdirected, postage-due, stolen, or misappropriated entries.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>Entry Forms with incorrect/inadequate/ambiguous/incomplete particulars will not be considered. The festival committee reserves the right to accept or refuse any film without assigning any reason whatsoever.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>DVDs or PEN DRIVE submitted for selection will be considered as final and no changes will be entertained after submission. It is the sole responsibility of the applicant to submit DVDs or PEN DRIVE without any physical/quality defects.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>The competition is open for professionals as well as the student.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"><h5>For further assistance please mail to the festival coordinator.</h5></div>
+         </div>
+
+         <div class="tli">
+            <div class="tl-left"><h5>At least 10 submissions must in each category, otherwise, no competition will be held on that category and no cash rewards will be given.</h5></div>
+            <div class="tl-center"><div class="tldot"></div></div>
+            <div class="tl-right"></div>
+         </div>
+
+      </div>
+   </div>
+</section>
+
+<!-- CHEFS / NOMINATION POLICIES -->
+<section id="chefs">
+   <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+         <h2 class="stitle">Meet Our <span>Nomination Policies</span></h2>
+         <div class="sline"></div>
+      </div>
+      <div class="row g-4">
+         <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+            <div class="chcard">
+               <div class="chimg"><img src="img/chefs/1.jpg" alt=""/></div>
+            </div>
+         </div>
+         <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="80">
+            <div class="chcard">
+               <div class="chimg"><img src="img/chefs/2.jpg" alt=""/></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- RESERVATION / SUBMISSION GUIDELINES -->
+<section id="reservation">
+   <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+         <span class="slbl">Reservation &amp; Updates</span>
+         <h2 class="stitle">Film Submission <span>Guidelines</span></h2>
+         <div class="sline"></div>
+      </div>
+      <div class="row g-4">
+         <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+            <div class="blcard">
+               <div class="blimg"><img src="img/blog/1.jpeg" alt=""/></div>
+               <div class="blbody">
+                  <div class="bltag">Short Film</div>
+                  <div class="bltit"><a href="#">Earlybird Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $8</span><span><i class="fas fa-user"></i>Student: $8</span></div>
+                  <div class="bltit"><a href="#">Standard Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $10</span><span><i class="fas fa-user"></i>Student: $10</span></div>
+                  <div class="bltit"><a href="#">Late Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $15</span><span><i class="fas fa-user"></i>Student: $15</span></div>
+                  <div class="bltit"><a href="#">Extended Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $20</span><span><i class="fas fa-user"></i>Student: $20</span></div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="80">
+            <div class="blcard">
+               <div class="blimg"><img src="img/blog/2.jpeg" alt=""/></div>
+               <div class="blbody">
+                  <div class="bltag">Educational Documentary / Short Film Best Education Documentary/Short Film (Participate only Educational Institution) 1st,2nd, 3rd (Cash Prizes amount will be announced later with Momento)</div>
+                  <div class="bltit"><a href="#">Earlybird Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $8</span><span><i class="fas fa-user"></i>Student: $8</span></div>
+                  <div class="bltit"><a href="#">Standard Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $10</span><span><i class="fas fa-user"></i>Student: $10</span></div>
+                  <div class="bltit"><a href="#">Late Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $15</span><span><i class="fas fa-user"></i>Student: $15</span></div>
+                  <div class="bltit"><a href="#">Extended Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $20</span><span><i class="fas fa-user"></i>Student: $20</span></div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="160">
+            <div class="blcard">
+               <div class="blimg"><img src="img/blog/3.jpeg" alt=""/></div>
+               <div class="blbody">
+                  <div class="bltag">Musical Album Individual Best Direction Best Story Best Editing Best DOP Best BGM Best Actor Best Actress Best Supporting Actor Best Supporting Actress Best Screenplay Best Concept</div>
+                  <div class="bltit"><a href="#">Earlybird Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $8</span><span><i class="fas fa-user"></i>Student: $8</span></div>
+                  <div class="bltit"><a href="#">Standard Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $10</span><span><i class="fas fa-user"></i>Student: $10</span></div>
+                  <div class="bltit"><a href="#">Late Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $15</span><span><i class="fas fa-user"></i>Student: $15</span></div>
+                  <div class="bltit"><a href="#">Extended Deadline</a></div>
+                  <div class="blmeta"><span><i class="fas fa-user"></i>Standard: $20</span><span><i class="fas fa-user"></i>Student: $20</span></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+   <div class="nlbg"></div>
+   <div class="container">
+      <div class="nlw text-center" data-aos="zoom-in">
+         <span class="slbl" style="color:rgba(255,255,255,.7);">Stay Connected</span>
+         <h2 class="mb-3" style="color:#fff;">Subscribe &amp; Get Exclusive <span style="color:var(--secondary);">Chances</span></h2>
+         <div class="nl-form-wrap">
+            <input class="nlinput" type="email" id="nlEmail" placeholder="Enter your email address..."/>
+            <button class="nlbtn" id="nlBtn"><i class="fas fa-paper-plane me-1"></i>Subscribe</button>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact-section">
+   <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+         <span class="slbl">Get In Touch</span>
+         <h2 class="stitle">Contact <span>Us</span></h2>
+         <div class="sline"></div>
+         <p class="sdesc mx-auto" style="max-width:480px;">Have a question, feedback? We'd love to hear from you.</p>
+      </div>
+      <div class="row g-4">
+         <div class="col-lg-4" data-aos="fade-right">
+            <div class="ctdark">
+               <h4>Maa Kali Kapalini Moviz (MKKMoviz)<br>C/o. Asit Dav (Bappa)</h4>
+               <p class="ctsub">Chandan Chakraborty (Festival Director) <br> Binod Kumar Sah (Festival President)</p>
+               <div class="ctitem">
+                  <div class="cticon"><i class="fas fa-map-marker-alt"></i></div>
+                  <div class="ctinfo"><strong>Address</strong><span>Shaktigarh, Road No, 01 Shaktigarh Siliguri, West Bengal 734005, India</span></div>
+               </div>
+               <div class="ctitem">
+                  <div class="cticon"><i class="fas fa-phone-alt"></i></div>
+                  <div class="ctinfo"><strong>Phone</strong><span>+91 9832015216 <br> +91 9064155724</span></div>
+               </div>
+               <div class="ctsocrow">
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-8" data-aos="fade-up">
+   <div class="fcard">
+      <div class="row g-3">
+         <div class="col-12 col-sm-6">
+            <label class="flbl">Your Name *</label>
+            <input type="text" class="fctrl" placeholder="John Doe"/>
+         </div>
+         <div class="col-12 col-sm-6">
+            <label class="flbl">Email Address *</label>
+            <input type="email" class="fctrl" placeholder="you@email.com"/>
+         </div>
+         <div class="col-12 col-sm-6">
+            <label class="flbl">Phone Number</label>
+            <input type="tel" class="fctrl" placeholder="+1 (800) 000-0000"/>
+         </div>
+         <div class="col-12">
+            <label class="flbl">Message *</label>
+            <textarea class="fctrl" rows="5" placeholder="Write your message here..."></textarea>
+         </div>
+         <div class="col-12">
+            <button class="btn-red" id="ctcBtn">
+               <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+         </div>
+      </div>
+      <div class="sucmsg" id="ctcOk">
+         <i class="fas fa-check-circle"></i>
+         <p>Message sent! We'll reply within 2 hours.</p>
+      </div>
+   </div>
+</div>
+      </div>
+   </div>
+</section>
+
+<!-- Back to top -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></button>
+
+<!-- jQuery -->
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/swiper-bundle.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+   // --- INTRO PAGE ANIMATION & HIDE LOGIC ---
+   document.addEventListener('DOMContentLoaded', function () {
+      const introPage = document.getElementById('intro-page');
+      const enterBtn  = document.getElementById('enterBtn');
+
+      function hideIntro() {
+         introPage.classList.add('hide-intro');
+         document.body.style.overflow = '';
+         setTimeout(() => {
+            if (introPage.parentNode) introPage.style.display = 'none';
+         }, 1500);
+      }
+
+      // Lock body scroll while intro is visible
+      document.body.style.overflow = 'hidden';
+
+      enterBtn.addEventListener('click', hideIntro);
+
+      // Uncomment for auto-hide after 5 seconds
+      // setTimeout(hideIntro, 5000);
+   });
+</script>
+</body>
+</html>
